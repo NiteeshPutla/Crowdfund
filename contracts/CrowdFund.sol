@@ -86,16 +86,3 @@ contract CrowdFunding {
     }
 }
 
-    function refund() public {
-        require(isGoalReached == false, "Goal has been reached, refunds are not possible");
-        require(contributions[msg.sender] > 0, "Sender has not contributed any funds");
-
-        uint256 amountToRefund = contributions[msg.sender];
-        contributions[msg.sender] = 0;
-        totalFunding -= amountToRefund;
-
-        token.transfer(msg.sender, amountToRefund);
-
-        emit FundTransfer(address(this), msg.sender, amountToRefund);
-    }
-}
